@@ -3,6 +3,7 @@ AddCSLuaFile("shared.lua")
 include("shared.lua")
 
 function ENT:Initialize()
+    -- CONFIG_EDIT
     self:SetModel(gHeroin.Config.NPC.Model)
     self:SetHullType(HULL_HUMAN)
     self:SetHullSizeNormal()
@@ -14,61 +15,21 @@ function ENT:Initialize()
     self:SetTrigger(true)
 
     self:SetUseType(SIMPLE_USE)
-    self.storedHeroin = 0
 end
 
+-- Use the NPC.
 function ENT:Use(ply)
-    -- Ensure it's a player.
-    if(!ply:IsValid() || ply:IsBot() || !ply:IsPlayer()) then return end
-
-    -- If the player is a CP, and the check if allowed.
-    if(gHeroin.Config.NPC.CheckCP == true && ply:isCP()) then
-        -- Give them a lovely message.
-        gHeroin.Core.Message(ply, gHeroin.Lang.NPC.CopMessage)
-        return
-    end
-
-    -- If the whitelist is active.
-    if(gHeroin.Config.NPC.Whitelist) then
-        -- And the player isn't in the whitelist.
-        if(!gHeroin.Config.NPC.WhitelistJobs[ply:Team()]) then
-            -- Nice message and then return.
-            gHeroin.Core.Message(ply, gHeroin.Lang.NPC.WhitelistMessage)
+    -- Check if the player is a CP.
+    if(gHeroin.Config.NPC.CheckCP) then
+        if(gHeroin.Config.NPC.CPJobs[ply:Team()] || ply:isCP()) then
+            gHeroin.Core.Message(ply, gHeroin.Languages[gHeroin.Config.Language].npcCP)
             return
         end
     end
 
-    -- If no heroin is stored.
-    if(self.storedHeroin <= 0) then
-        -- Message them telling them so.
-        gHeroin.Core.Message(ply, gHeroin.Lang.NPC.NoHeroinMessage)
-        return
-    end
+    -- Open UI.
+    net.Start("gheroin.core.npcui")
+    net.Send(ply)
 
-    -- If all is well, then pay the player and be on their way.
-    local payout = math.random(gHeroin.Config.NPC.PayoutMin, gHeroin.Config.NPC.PayoutMax) * self.storedHeroin
-    ply:addMoney(payout)
-    gHeroin.Core.Message(ply, string.format(gHeroin.Lang.NPC.HeroinMessage, gHeroin.Config.Currency .. string.Comma(payout)))
-    self.storedHeroin = 0
-end
-
-function ENT:AddHeroin(amount)
-    self.storedHeroin = self.storedHeroin + amount
-end
-
-function ENT:StartTouch(ent)
-    -- If it's a packge.
-    if(ent:GetClass() == "gheroin_package") then
-		-- If the package isn't empty..
-		if(ent:GetStoredHeroin() <= 0) then return end
-		-- Give the NPC the heroin, and remove the package.
-		self:AddHeroin(ent:GetStoredHeroin())
-		ent:Remove()
-	end
-
-    if(ent:GetClass() == "gheroin_heroin") then
-		-- Give the NPC the heroin, and remove the package.
-		self:AddHeroin(ent:GetAmount())
-		ent:Remove()
-	end
+    hook.Run("gheroin.hooks.npc.open", ply)
 end

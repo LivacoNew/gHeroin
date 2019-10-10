@@ -9,23 +9,30 @@ function ENT:Draw()
 end
 
 function ENT:DrawTranslucent()
-	-- 3D2D.
-	local ang = self:GetAngles()
-    local posX = "76561198121018313"
-	local pos = self:LocalToWorld(Vector(0, 0, 0)) + Vector(0, 0, 77.5)
+    local distance = (LocalPlayer():GetShootPos() - self:GetPos()):Length()
+    if(distance > gHeroin.Config.Distance3d2d) then return end
 
-	if(gHeroin.Config.StareAtPlayer) then
-		ang = Angle(0, LocalPlayer():EyeAngles().y - 90, -LocalPlayer():EyeAngles().p - 270)
-	else
-		ang:RotateAroundAxis(self:GetAngles():Up(), 90)
-		ang:RotateAroundAxis(self:GetAngles():Right(), -90)
-	end
+    local ang = self:GetAngles()
+    if(gHeroin.Config.NPC.Stare) then
+        ang =Angle(0, LocalPlayer():EyeAngles().y - 90, -LocalPlayer():EyeAngles().p - 270)
+    else
+        ang:RotateAroundAxis(self:GetUp(), 90)
+        ang:RotateAroundAxis(self:GetRight(), -90)
+    end
+	local pos = self:LocalToWorld(Vector(0, 0, 0)) + Vector(0, 0, 80)
 
-	surface.SetFont("gheroin.entities.1")
-	local textLength = surface.GetTextSize(gHeroin.Lang.NPC.Text3D2D) + 50
+    surface.SetFont("gheroin.fonts.entities.4")
+    local length = surface.GetTextSize(gHeroin.Languages[gHeroin.Config.Language].npc3D2D) + 40
 
 	cam.Start3D2D(pos, ang, 0.1)
-	draw.RoundedBox(0, (textLength / 2) * -1, -25, textLength, 50, Color(0, 0, 0, 250))
-	draw.SimpleText(gHeroin.Lang.NPC.Text3D2D, "gheroin.entities.1", 0, 0, Color(255, 255, 255, 255), 1, 1)
+
+    draw.RoundedBox(0, (length / 2) * -1, -10, length, 60, Color(25, 25, 25))
+    draw.RoundedBox(0, (length / 2) * -1, -10, length, 5, Color(15, 15, 15))
+    draw.NoTexture()
+    surface.SetDrawColor(25, 25, 25)
+    surface.DrawTexturedRectRotated(0, 30, 50, 50, 45)
+
+    draw.SimpleText(gHeroin.Languages[gHeroin.Config.Language].npc3D2D, "gheroin.fonts.entities.4", 0, -5, Color(255, 255, 255), 1, 0)
+
 	cam.End3D2D()
 end

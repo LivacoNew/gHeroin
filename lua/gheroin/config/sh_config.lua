@@ -1,98 +1,153 @@
---[[
--- gHeroin Config
--- Drop a ticket if you need any help.
-]]--
-
--- If you want to edit/change the DarkRP F4 entities, goto gheroin/core/sh_darkrp.lua and edit that file. If you want to disable it, just simply delete the file.
-
+--[[----------------------------------
+--        gHeroin - By Livaco       --
+--------------------------------------
+-- If you need help, drop a ticket. --
+]]------------------------------------
 
 --[[
--- General Config
+-- General Settings
 ]]--
 
--- The prefix for all chat messages.
+-- Your language. en - English.
+gHeroin.Config.Language = "en"
+
+-- The chat prefix.
 gHeroin.Config.Prefix = "[gHeroin]"
 
--- The color of the prefix.
+-- The color for the chat prefix.
 gHeroin.Config.PrefixColor = Color(255, 0, 255)
 
--- The color of the rest of the message.
-gHeroin.Config.ChatColor = Color(255, 255, 255)
+-- The color for the rest of the message.
+gHeroin.Config.MessageColor = Color(255, 255, 255)
 
--- The currency to use.
-gHeroin.Config.Currency = "$"
-
--- The font for all the visuals.
+-- The font to use for everything.
 gHeroin.Config.Font = "Roboto"
 
--- If false, 3D2Ds will not look at the player, and just stay looking forward.
-gHeroin.Config.StareAtPlayer = true
-
-
-
---[[
--- Entity Config
-]]--
-
--- The time it takes for the Extractor to extract.
-gHeroin.Config.Entities.ExtractorTime = 30
-
--- The time it takes for the ingredients to dissolve in the Barrel.
-gHeroin.Config.Entities.IngredientDissolveTime = 50
-
--- The time it takes for the ingredients to mix in the Mixer.
-gHeroin.Config.Entities.IngredientMixTime = 60
-
--- The unit Heroin is mesured in.
-gHeroin.Config.Entities.HeroinUnit = "g"
-
--- The minimum/maximum amount a heroin packet can contain. This is in whatever units you specified above.
-gHeroin.Config.Entities.HeroinMin = 1 -- Minimum
-gHeroin.Config.Entities.HeroinMax = 5 -- Maximum
-
--- The maximum amount of heroin a Package can contain. This is in whatever units you specified above.
-gHeroin.Config.Entities.MaxHeroin = 75
-
--- How long a player should be high after taking heroin.
-gHeroin.Config.Entities.HeroinHighTime = 60
-
--- The health for all the entities (alphabetical order).
-gHeroin.Config.Entities.EntityHealth = {}
-gHeroin.Config.Entities.EntityHealth["acetic"] = 15 -- Acetic Anhydride
-gHeroin.Config.Entities.EntityHealth["acid"] = 25 -- Hydrochloric Acid
-gHeroin.Config.Entities.EntityHealth["ammoina"] = 25 -- Ammoina Solution
-gHeroin.Config.Entities.EntityHealth["barrel"] = 250 -- Barrel
-gHeroin.Config.Entities.EntityHealth["extractor"] = 150 -- Extractor
-gHeroin.Config.Entities.EntityHealth["heroinBase"] = 50 -- Heroin Base
-gHeroin.Config.Entities.EntityHealth["heroin"] = 75 -- Regular Heroin
-gHeroin.Config.Entities.EntityHealth["mixer"] = 250 -- Mixer
-gHeroin.Config.Entities.EntityHealth["morphine"] = 15 -- Morphine
-gHeroin.Config.Entities.EntityHealth["package"] = 50 -- Package
-gHeroin.Config.Entities.EntityHealth["seed"] = 15 -- Poppy Seed
-gHeroin.Config.Entities.EntityHealth["sodium"] = 15 -- Sodium Carbonate
-
+-- The distance before 3d2d stops rendering.
+gHeroin.Config.Distance3d2d = 750
 
 
 --[[
--- NPC Config
+-- Growing Settings
 ]]--
 
--- The model for the NPC.
-gHeroin.Config.NPC.Model = "models/Humans/Group03/Male_01.mdl"
+-- The percentage of light needed to determine too much light/not enough. In the middle means it grows.
+gHeroin.Config.Plant.NotEnoughLight = 0.2 -- Not enough.
+gHeroin.Config.Plant.TooMuchLight = 0.8 -- Too much.
 
--- Whether to check if the player is a CP or not. If they are, the NPC will just say a message specified in the lang file.
+-- If the light can be picked up with the physgun. This is HIGHLY recommeneded.
+gHeroin.Config.Plant.LightPhys = true
+
+-- The rate the light looses power at. Be careful not to set this too high.
+gHeroin.Config.Plant.LampPowerRate = 0.1
+
+-- The rate the plant grows at. Be careful not to set this too high.
+gHeroin.Config.Plant.GrowRate = 1
+
+-- The min and max amount of Opium that can be harvested from a single seed.
+gHeroin.Config.Plant.MinOpium = 1
+gHeroin.Config.Plant.MaxOpium = 5
+
+
+--[[
+-- Crushing Settings
+]]--
+
+-- The max amount of Opium that can be stored in the crusher.
+gHeroin.Config.Crusher.MaxOpium = 5
+
+-- The max amount of Opium Latex that can be stored in the crusher.
+gHeroin.Config.Crusher.MaxLatex = 50
+
+-- The time needed to crush per Opium Pod.
+gHeroin.Config.Crusher.Time = 5
+
+-- The min and max amount of Opium Latex you get can from crushing a single Opium Pod.
+gHeroin.Config.Crusher.LatexMin = 1
+gHeroin.Config.Crusher.LatexMax = 10
+
+
+--[[
+-- Extraction Settings
+]]--
+
+-- The max amount of Opium Latex the Extractor can hold at once.
+gHeroin.Config.Extractor.MaxLatex = 35
+
+-- The max amount of Morphine the Extractor can hold at once.
+gHeroin.Config.Extractor.MaxHeroin = 20
+
+-- The min/max amount of Heroin that can be extracted per unit of Opium Latex.
+gHeroin.Config.Extractor.HeroinMin = 1
+gHeroin.Config.Extractor.HeroinMax = 5
+
+-- The time needed to extract from a single unit of Opium Latex.
+gHeroin.Config.Extractor.TimePerLatex = 5
+
+
+--[[
+-- NPC Settings
+]]--
+
+-- The NPC Model.
+gHeroin.Config.NPC.Model = "models/Humans/Group03/Male_04.mdl"
+
+-- If the NPC will stare at the player. If false, it will just look forward.
+gHeroin.Config.NPC.Stare = true
+
+-- If the NPC will change responces when a CP tries to interact with it. If false, CP's can just use it regularly.
 gHeroin.Config.NPC.CheckCP = true
 
--- The minimum/maximum value for the NPC's payout per unit of heroin.
-gHeroin.Config.NPC.PayoutMin = 100 -- Minimum
-gHeroin.Config.NPC.PayoutMax = 1000 -- Maximum
+-- The min/max amount of benjamins you can get from a unit of heroin.
+gHeroin.Config.NPC.MinPayout = 100 -- Min
+gHeroin.Config.NPC.MaxPayout = 5000 -- Max
 
--- If true, a 'Whitelist' will be enabled, meaining only certain jobs will be allowed to use the NPC.
-gHeroin.Config.NPC.Whitelist = true
+-- How much it costs for a syringe.
+gHeroin.Config.NPC.SyringeCost = 500
 
--- If above is true, what jobs are allowed to use the NPC.
-gHeroin.Config.NPC.WhitelistJobs = {}
-hook.Add("loadCustomDarkRPItems", "gheroin.config.npcjobs", function() -- Ignore this line.
-    gHeroin.Config.NPC.WhitelistJobs[TEAM_GANG] = true -- Gangster
-    gHeroin.Config.NPC.WhitelistJobs[TEAM_MOB] = true -- Mob Boss
+-- The CP Jobs you have. Note it already checks from DarkRP's marked CPs, this is just for extras.
+gHeroin.Config.NPC.CPJobs = {} -- Ignore this line.
+hook.Add("loadCustomDarkRPItems", "gheroin.config.cpjobs", function() -- Ignore this line.
+    -- gHeroin.Config.NPC.CPJobs[TEAM_CITIZEN] = true -- Example citizen.
 end) -- Ignore this line.
+
+
+--[[
+-- Misc Settings
+]]--
+
+-- The max amount of power the Light can hold.
+gHeroin.Config.Misc.LampMaxPower = 100
+
+-- The max amount of Opium Latex that can be stored in the bucket.
+gHeroin.Config.Misc.BucketMaxLatex = 25
+
+-- The max amount of Heroin a Bag of Heroin can hold at once.
+gHeroin.Config.Misc.MaxHeroin = 10
+
+-- How long in seconds a player is high for after injecting a single unit of heroin.
+gHeroin.Config.Misc.HighTime = 10
+
+-- If the addon should add the entities/jobs into DarkRP automatically. To adjust the values for these, goto lua/gheroin/core/sh_darkrp.lua.
+gHeroin.Config.Misc.DarkRPAdd = true
+
+
+--[[
+-- Unit Settings
+]]--
+
+-- Units for amounts of Heroin.
+gHeroin.Config.Units.HeroinUnits = "g"
+
+-- The currency to use.
+gHeroin.Config.Units.Currency = "$"
+
+
+--[[
+-- Toolgun Settings
+]]--
+
+-- Usergroups that can use the Toolgun to make NPCs.
+gHeroin.Config.Toolgun.Groups = {}
+gHeroin.Config.Toolgun.Groups["superadmin"] = true
+gHeroin.Config.Toolgun.Groups["admin"] = true

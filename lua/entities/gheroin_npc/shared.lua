@@ -8,5 +8,5 @@ ENT.Spawnable = true
 ENT.AdminOnly = true
 
 function ENT:SetupDataTables()
-
+    self:NetworkVar("Int", 0, "SpawnID")
 end

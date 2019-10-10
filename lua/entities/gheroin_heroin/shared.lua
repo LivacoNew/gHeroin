@@ -1,6 +1,6 @@
 ENT.Type = "anim"
 ENT.Base = "base_gmodentity"
-ENT.PrintName = "Heroin"
+ENT.PrintName = "Bag of Heroin"
 ENT.Category = "gHeroin"
 ENT.Spawnable = true
 ENT.AdminOnly = true

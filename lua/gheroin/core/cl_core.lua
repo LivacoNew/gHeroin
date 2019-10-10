@@ -1,28 +1,48 @@
--- Fonts.
-surface.CreateFont("gheroin.entities.1", {
+-- Fonts
+surface.CreateFont("gheroin.fonts.entities.1", {
     font = gHeroin.Config.Font,
-    size = 40
+    size = 35
 })
-surface.CreateFont("gheroin.entities.2", {
+surface.CreateFont("gheroin.fonts.entities.2", {
     font = gHeroin.Config.Font,
-    size = 60
+    size = 20
+})
+surface.CreateFont("gheroin.fonts.entities.3", {
+    font = gHeroin.Config.Font,
+    size = 15
+})
+surface.CreateFont("gheroin.fonts.entities.4", {
+    font = gHeroin.Config.Font,
+    size = 50
 })
 
--- Basic message function.
+surface.CreateFont("gheroin.fonts.vgui.1", {
+    font = gHeroin.Config.Font,
+    size = ScreenScale(12)
+})
+surface.CreateFont("gheroin.fonts.vgui.2", {
+    font = gHeroin.Config.Font,
+    size = ScreenScale(8)
+})
+surface.CreateFont("gheroin.fonts.vgui.3", {
+    font = gHeroin.Config.Font,
+    size = ScreenScale(7)
+})
+
+-- Chat messages.
 function gHeroin.Core.Message(message)
-    chat.AddText(gHeroin.Config.PrefixColor, gHeroin.Config.Prefix, gHeroin.Config.ChatColor, " ", message)
+    chat.AddText(gHeroin.Config.PrefixColor, gHeroin.Config.Prefix, gHeroin.Config.MessageColor, " ", message)
 end
--- Receive the net message from the Server to send a message.
 net.Receive("gheroin.core.message", function()
     gHeroin.Core.Message(net.ReadString())
 end)
 
--- Player being high.
-net.Receive("gheroin.core.high", function()
-    gHeroin.Highs[LocalPlayer():SteamID64()] = gHeroin.Config.Entities.HeroinHighTime + CurTime()
+-- Making the player high.
+net.Receive("gheroin.core.highplayer", function()
+    gHeroin.Highs[LocalPlayer():SteamID64()] = CurTime() + gHeroin.Config.Misc.HighTime
 end)
 
-local screenLerp = 0;
+local screenLerp = 0
 hook.Add("RenderScreenspaceEffects", "gheroin.core.high", function()
     if(!gHeroin.Highs[LocalPlayer():SteamID64()]) then return end
     if(gHeroin.Highs[LocalPlayer():SteamID64()] <= CurTime()) then

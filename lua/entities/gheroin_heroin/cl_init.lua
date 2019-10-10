@@ -1,26 +1,29 @@
 include("shared.lua")
 
 function ENT:Draw()
-	self:DrawModel()
+    self:DrawModel()
 end
 
 function ENT:DrawTranslucent()
-	-- 3D2D.
-	local ang = self:GetAngles()
-	local pos = self:LocalToWorld(Vector(0, 0, 0)) + Vector(0, 0, 25)
+    local distance = (LocalPlayer():GetShootPos() - self:GetPos()):Length()
+    if(distance > gHeroin.Config.Distance3d2d) then return end
 
-	if(gHeroin.Config.StareAtPlayer) then
-		ang = Angle(0, LocalPlayer():EyeAngles().y - 90, -LocalPlayer():EyeAngles().p - 270)
-	else
-		ang:RotateAroundAxis(self:GetAngles():Up(), 90)
-		ang:RotateAroundAxis(self:GetAngles():Right(), -90)
-	end
+	local ang = Angle(0, LocalPlayer():EyeAngles().y - 90, -LocalPlayer():EyeAngles().p - 270)
+    local pos = self:LocalToWorld(Vector(0, 0, 0)) + Vector(0, 0, 5)
 
-	surface.SetFont("gheroin.entities.1")
-	local textLength = surface.GetTextSize(string.format(gHeroin.Lang.Entities.Heroin3D2D, string.Comma(self:GetAmount()) .. gHeroin.Config.Entities.HeroinUnit)) + 50
+    cam.Start3D2D(pos, ang, 0.1)
 
-	cam.Start3D2D(pos, ang, 0.1)
-	draw.RoundedBox(0, (textLength / 2) * -1, -25, textLength, 50, Color(0, 0, 0, 250))
-	draw.SimpleText(string.format(gHeroin.Lang.Entities.Heroin3D2D, string.Comma(self:GetAmount()) .. gHeroin.Config.Entities.HeroinUnit), "gheroin.entities.1", 0, 0, Color(255, 255, 255, 255), 1, 1)
-	cam.End3D2D()
+    local baseX = 100
+    local w,h = 250,70
+
+    draw.RoundedBox(0, baseX, h * 0.1, w, h * 0.9, Color(50, 50, 50))
+    draw.RoundedBox(10, baseX, 0, w, h * 0.3, Color(25, 25, 25))
+    draw.RoundedBox(0, baseX, h * 0.09, w, h * 0.4, Color(25, 25, 25))
+    draw.DrawText(gHeroin.Languages[gHeroin.Config.Language].heroinName, "gheroin.fonts.entities.1", baseX + (w / 2), -1.5, Color(255, 255, 255), 1)
+
+    draw.RoundedBox(0, baseX + (w * 0.025), h * 0.61, w * 0.95, h * 0.275, Color(25, 25, 25))
+    draw.RoundedBox(0, baseX + (w * 0.025), h * 0.61, (self:GetAmount() / gHeroin.Config.Misc.MaxHeroin) * 237.5, h * 0.275, Color(35, 35, 255))
+    draw.DrawText(string.format(gHeroin.Languages[gHeroin.Config.Language].heroinStored, string.Comma(self:GetAmount()) .. gHeroin.Config.Units.HeroinUnits, gHeroin.Config.Misc.MaxHeroin .. gHeroin.Config.Units.HeroinUnits), "gheroin.fonts.entities.2", baseX + (w / 2), h * 0.6, Color(220, 220, 220), 1)
+
+    cam.End3D2D()
 end
