@@ -1,0 +1,11 @@
+"VertexLitGeneric"
+{
+	"$phong" "1"
+	"$basetexture" "models/livaco/gheroin/livaco_barrel_diffuse"
+	"$bumpmap" "models/livaco/gheroin/livaco_barrel_normal"
+
+	"$phongboost" "1"
+	"$phongfresnelranges" "[1 2 3]"
+	"$phongexponent" "8"
+	"$phongalbedotint" "1"
+}
