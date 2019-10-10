@@ -20,6 +20,11 @@ lua/gheroin/config/sh_config.lua
 - Drag + Drop Installation
 - bLogs support.
 
+## Beta Testers
+- [Doctor Internet](https://www.gmodstore.com/users/76561198031020569)
+- [Zeo](https://www.gmodstore.com/users/zeo)
+- [Janusz](https://www.gmodstore.com/users/76561198109990747)
+
 ## Can I contribute?
 Sure. Go for it.
 
