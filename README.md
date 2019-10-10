@@ -7,5 +7,23 @@ That's because this addon was originally made to be published on [gmodstore](htt
 ## Where is the config?
 lua/gheroin/config/sh_config.lua
 
-## Another Version?
-There is another version, the rewrite I had planned for this addon originally, on my website. I would suggest you use that instead. Download it [here]()
+## Features
+- Some (not all) models.
+- Full drug system.
+- NPC Placement system.
+- Adds a new way for players to make money.
+- Lightweight.
+- Optimised to the full.
+- Cool looking 3d2d.
+- Extensive config.
+- NPC w/ dialog and UI.
+- Drag + Drop Installation
+- bLogs support.
+
+## Can I contribute?
+Sure. Go for it.
+
+## Why didn't you continue with the addon?
+Pure demotivation and busy life.
+
+## Thanks!
