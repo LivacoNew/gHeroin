@@ -28,7 +28,7 @@ function ENT:DrawTranslucent()
         draw.DrawText(gHeroin.Languages[gHeroin.Config.Language].crusherStep1, "gheroin.fonts.entities.2", baseX + (w * 0.025), h * 0.36, Color(220, 220, 220), 0)
     else
         if(self:GetLatex() >= gHeroin.Config.Crusher.MaxLatex) then
-            draw.DrawText(gHeroin.Languages[gHeroin.Config.Language].cruserLatex, "gheroin.fonts.entities.2", baseX + (w * 0.025), h * 0.2, Color(220, 220, 220), 0)
+            draw.DrawText(gHeroin.Languages[gHeroin.Config.Language].crusherFull , "gheroin.fonts.entities.2", baseX + (w * 0.025), h * 0.2, Color(220, 220, 220), 0
         else
             draw.DrawText(string.format(gHeroin.Languages[gHeroin.Config.Language].entStep, 2), "gheroin.fonts.entities.1", baseX + (w * 0.025), h * 0.19, Color(255, 255, 255), 0)
             draw.DrawText(string.format(gHeroin.Languages[gHeroin.Config.Language].crusherStep2, self:GetTimeLeft()), "gheroin.fonts.entities.2", baseX + (w * 0.025), h * 0.375, Color(220, 220, 220), 0)
